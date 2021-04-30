@@ -65,6 +65,8 @@ Admin-MERN-app
 │   │   ├── manifest.json
 │   │   └── robots.txt
 │   ├── src
+│   │   ├── actions
+│   │   │   └── index.js
 │   │   ├── components
 │   │   │   ├── contacts
 │   │   │   │   ├── ContactAdd.js
@@ -72,7 +74,11 @@ Admin-MERN-app
 │   │   │   │   ├── ContactInfo.js
 │   │   │   │   └── ContactList.js
 │   │   │   └── pages
-│   │   │       └── Home.js
+│   │   │       └── About.jsx
+│   │   ├── reducers
+│   │   │   ├── contactReducer.js
+│   │   │   ├── contactsReducer.js
+│   │   │   └── index.js
 │   │   ├── App.css
 │   │   ├── App.js
 │   │   ├── App.test.js
@@ -90,6 +96,7 @@ Admin-MERN-app
 │   └── index.js
 ├── package-lock.json
 ├── package.json
+├── README.md
 └── server.js
 ```
 
@@ -104,9 +111,11 @@ List of dependencies used in the project
 
 * [React.js] (https://es.reactjs.org/) - Una biblioteca de JavaScript para construir interfaces de usuario
 * [React - Bootstrap] (https://react-bootstrap.github.io/) - UI framework for modern web apps
+* [React - Redux] (https://react-redux.js.org/) - Official React bindings for Redux
 * [Node.js] (https://nodejs.org/es/) - Node.js® es un entorno de ejecución para JavaScript
 * [express] (https://expressjs.com/es/) - Infraestructura web rápida, minimalista y flexible para Node.js
 * [MongoDB] (https://www.mongodb.com/) - MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.
+
 
 ## Todo
 
