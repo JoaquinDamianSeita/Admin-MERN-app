@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, NavLink, Switch} from 'react-router-dom';
 import './App.css';
-import Home from './components/pages/Home';
+import About from './components/pages/About';
 import ContactList from './components/contacts/ContactList';
 import ContactInfo from './components/contacts/ContactInfo';
 import ContactAdd from './components/contacts/ContactAdd';
@@ -27,8 +27,8 @@ function Navigation() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <div className='container'>
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
-          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/contacts">Contacts</NavLink></li>
+          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Contacts</NavLink></li>
+          <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/about">About</NavLink></li>
         </ul>
       </div>
     </nav>
@@ -38,11 +38,11 @@ function Navigation() {
 function Main() {
   return(
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/contacts" component={ArticleList} />
-      <Route exact path="/contacts/new" component={ArticleAdd} />
-      <Route exact path="/contacts/:_id" component={ArticleInfo} />
-      <Route exact path="/contacts/:_id/edit" component={ArticleEdit} />
+      <Route exact path="/" component={ContactList} />
+      <Route exact path="/about" component={About} />
+      <Route exact path="/contacts/new" component={ContactAdd} />
+      <Route exact path="/contacts/:_id" component={ContactInfo} />
+      <Route exact path="/contacts/:_id/edit" component={ContactEdit} />
     </Switch>
   );
 }

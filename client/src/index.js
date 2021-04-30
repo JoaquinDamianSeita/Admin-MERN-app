@@ -1,9 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceworker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+import { Provider } from "react-redux";
+import "bootstrap/dist/css/bootstrap.css";
+import "./index.css";
+import App from "./App";
+import rootReducer from "./reducers";
+import { setContacts } from "./actions"
+ 
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
-ReactDOM.render( <App /> , document.getElementById('root'));
-serviceWorker.unregister();
+store.dispatch(setContacts());
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
