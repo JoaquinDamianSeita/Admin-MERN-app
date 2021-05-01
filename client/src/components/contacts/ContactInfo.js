@@ -35,8 +35,9 @@ function ContactInfo(props) {
       <h2>{contact.name}</h2>
       <small>id: {contact._id}</small>
       <p>{contact.tel}</p>
-      <p>{contact.email}</p>
       <p>{contact.adress}</p>
+      <p>{contact.email}</p>
+      
       <div className="btn-group">
         <Link
           to={{ pathname: `/contacts/${contact._id}/edit` }}
