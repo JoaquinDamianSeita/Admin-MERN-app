@@ -9,10 +9,12 @@ function ContactList() {
   return (
     <div>
       <h2>
+        Contacts
         <Link to="/contacts/new" className="btn btn-primary float-right">
           Create Contact
         </Link>
       </h2>
+      <hr/>
       {contacts.length &&
         contacts.map(function (contact) {
           return (

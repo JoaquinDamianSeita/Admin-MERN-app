@@ -9,10 +9,12 @@ import "./index.css";
 import App from "./App";
 import rootReducer from "./reducers";
 import { setContacts } from "./actions"
+import { setOrders } from "./actions";
  
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 store.dispatch(setContacts());
+store.dispatch(setOrders());
 
 ReactDOM.render(
   <Provider store={store}>

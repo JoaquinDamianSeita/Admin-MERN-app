@@ -59,6 +59,8 @@ router.post("/:route", function (req, res) {
   }
 });
 
+
+//con este get obtengo un documento en especifico de la base de datos
 router.get("/:route/:id", function (req, res) {
   if (req.params.route === "contacts") {
     Contact.findById(req.params.id, function (err, contact) {
@@ -69,14 +71,29 @@ router.get("/:route/:id", function (req, res) {
       }
     });
   } else if (req.params.route === "orders") {
+      Order.findById(req.params.id, function (err, order) {
+        if (!order) {
+          res.status(404).send("No result found");
+        } else {
+          res.json(order);
+        }
+      });
+  }
+});
+
+
+//con este get obtengo un subdocumento adentro del documento pricipal en este caso seria las ordenes de trabajo
+router.get("/:route/:id/:work",function (req,res){
+  if (req.params.route === "orders") {
     Order.findById(req.params.id, function (err, order) {
       if (!order) {
         res.status(404).send("No result found");
       } else {
-        res.json(order);
+        const work = order.worksArray.id(req.params.work);
+        res.json(work);
       }
     });
-  }
+  } ;
 });
 
 router.patch("/:route/:id", function (req, res) {
@@ -98,7 +115,6 @@ router.patch("/:route/:id", function (req, res) {
       });
   }
 });
-
 
 router.delete("/:route/:id", function (req, res) {
   if (req.params.route === "contacts") {
