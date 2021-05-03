@@ -118,7 +118,7 @@ Admin-MERN-app
 
 List of dependencies used in the project
 
-* [React.js] (https://es.reactjs.org/) - Una biblioteca de JavaScript para construir interfaces de usuario.
+* [React.js] - (https://es.reactjs.org/) - Una biblioteca de JavaScript para construir interfaces de usuario.
 * [React - Bootstrap] (https://react-bootstrap.github.io/) - UI framework for modern web apps.
 * [React - Redux] (https://react-redux.js.org/) - Official React bindings for Redux.
 * [redux-logger] (https://www.npmjs.com/package/redux-logger) - LogRocket is a production Redux logging tool that lets you replay problems as if they happened in your own browser.
