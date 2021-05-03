@@ -21,7 +21,8 @@ Aplicación para simplificar la adminstración de pequeños negocios y emprendim
 
 ## Background / Overview
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus rem, numquam sint vitae voluptate consequatur, expedita doloribus totam laboriosam recusandae quod mollitia dolores quas? Similique assumenda eum quia culpa magni!
+Una aplicacion web en desarrollo, la idea es facilitar la tarea de administrar datos como contactos, presupuestos, compras todo en un solo lugar donde la persona
+pueda disponer de la informacion en cualquier momento en tiempo real.
 
 ## Features
 
@@ -73,12 +74,19 @@ Admin-MERN-app
 │   │   │   │   ├── ContactEdit.js
 │   │   │   │   ├── ContactInfo.js
 │   │   │   │   └── ContactList.js
+│   │   │   ├── orders
+│   │   │   │   ├── OrderAdd.js
+│   │   │   │   ├── OrderEdit.js
+│   │   │   │   ├── OrderInfo.js
+│   │   │   │   └── OrderList.js
 │   │   │   └── pages
 │   │   │       └── About.jsx
 │   │   ├── reducers
 │   │   │   ├── contactReducer.js
 │   │   │   ├── contactsReducer.js
-│   │   │   └── index.js
+│   │   │   ├── index.js
+│   │   │   ├── orderReducer.js
+│   │   │   └── ordersReducer.js
 │   │   ├── App.css
 │   │   ├── App.js
 │   │   ├── App.test.js
@@ -91,7 +99,8 @@ Admin-MERN-app
 │   ├── package.json
 │   └── yarn.lock
 ├── models
-│   └── contact.js
+│   ├── contact.js
+│   └── orden.js
 ├── routes
 │   └── index.js
 ├── package-lock.json
@@ -109,12 +118,17 @@ Admin-MERN-app
 
 List of dependencies used in the project
 
-* [React.js] (https://es.reactjs.org/) - Una biblioteca de JavaScript para construir interfaces de usuario
-* [React - Bootstrap] (https://react-bootstrap.github.io/) - UI framework for modern web apps
-* [React - Redux] (https://react-redux.js.org/) - Official React bindings for Redux
-* [Node.js] (https://nodejs.org/es/) - Node.js® es un entorno de ejecución para JavaScript
-* [express] (https://expressjs.com/es/) - Infraestructura web rápida, minimalista y flexible para Node.js
+* [React.js] (https://es.reactjs.org/) - Una biblioteca de JavaScript para construir interfaces de usuario.
+* [React - Bootstrap] (https://react-bootstrap.github.io/) - UI framework for modern web apps.
+* [React - Redux] (https://react-redux.js.org/) - Official React bindings for Redux.
+* [redux-logger] (https://www.npmjs.com/package/redux-logger) - LogRocket is a production Redux logging tool that lets you replay problems as if they happened in your own browser.
+* [redux-thunk] (https://www.npmjs.com/package/redux-thunk) - Thunk middleware for Redux.
+* [Node.js] (https://nodejs.org/es/) - Node.js® es un entorno de ejecución para JavaScript.
+* [concurrently] (https://www.npmjs.com/package/concurrently) - Run multiple commands concurrently. Like npm run watch-js & npm run watch-less but better.
+* [express] (https://expressjs.com/es/) - Infraestructura web rápida, minimalista y flexible para Node.js.
 * [MongoDB] (https://www.mongodb.com/) - MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.
+* [mongoose-sequence] (https://www.npmjs.com/package/mongoose-sequence) - This plugin lets you create fields which autoincrement their value.
+
 
 
 ## Todo
