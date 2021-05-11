@@ -7,6 +7,7 @@ export const REMOVE_CONTACT = "REMOVE_CONTACT";
 export const REPLACE_CONTACT = "REPLACE_CONTACT";
 
 export const SET_ORDERS = "SET_ORDERS";
+export const ADD_ORDER = "ADD_ORDER";
 
 export function setContacts(){
     return function (dispatch){
@@ -32,6 +33,13 @@ export function addContact(contact){
     return {
         type:ADD_CONTACT,
         contact:contact,
+    };
+};
+
+export function addOrder(order){
+    return{
+        type:ADD_ORDER,
+        order:order,
     };
 };
 
