@@ -32,16 +32,57 @@ function OrderAdd(props) {
     setWorkFields({ ...work, [event.target.name]: event.target.value });
   }
 
-  function confirmWorkItem() {
-    setWorksArray(...arrayWorksTemp, work);
-    setWorkFields(workInitialState);
-    console.log(arrayWorksTemp);
+  function confirmWorkItem(event) {
+    event.preventDefault();
+
+    if (work.typeWork || work.price) {
+      setWorksArray([...arrayWorksTemp, work]);
+      setWorkFields(workInitialState);
+      console.log(order);
+      // console.log(work);
+      // console.log(arrayWorksTemp);
+    }
+  }
+
+  function displayWorksItems() {
+    return arrayWorksTemp.map((work, i) => {
+      return (
+        <div key={i} className="row form-group">
+          <div className="col-3">
+            <input
+              type="text"
+              value={work.typeWork}
+              className="form-control"
+              placeholder={work.typeWork}
+              disabled
+            />
+          </div>
+          <div className="col-4">
+            <input
+              type="text"
+              value={work.detail}
+              className="form-control"
+              placeholder={work.detail}
+              disabled
+            />
+          </div>
+          <div className="col-2">
+            <input
+              type="text"
+              value={work.price}
+              className="form-control"
+              placeholder={work.price}
+              disabled
+            />
+          </div>
+        </div>
+      );
+    });
   }
 
   function handleSubmit(event) {
-    order.worksArray = arrayWorksTemp;
-
     event.preventDefault();
+    order.worksArray = arrayWorksTemp;
     if (
       !order.clientName ||
       !order.date ||
@@ -49,6 +90,7 @@ function OrderAdd(props) {
       !order.observaciones
     )
       return post("/api/orders", {
+        clientId:order.clientId,
         clientName: order.clientName,
         date: order.date,
         worksArray: order.worksArray,
@@ -71,87 +113,103 @@ function OrderAdd(props) {
 
   return (
     <div>
-      <h4>Add Order</h4>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="clientName"
-          required
-          value={order.clientName}
-          onChange={handleOrderChange}
-          className="form-control"
-          placeholder="Client Name"
-        />
-        <input
-          type="date"
-          name="date"
-          required
-          value={order.date}
-          onChange={handleOrderChange}
-          className="form-control"
-        />
-        {/* {arrayWorksTemp.map((work) => {
-          return (
-            <div>
+      <h2 className="text-center m-5">Add Order</h2>
+      <div className="d-flex justify-content-center formBox ">
+        <form onSubmit={handleSubmit} className="container">
+          <div className="row form-group">
+            <div className="col-xl-5">
               <input
                 type="text"
-                value={work.typeWork}
+                name="clientName"
+                required
+                value={order.clientName}
+                onChange={handleOrderChange}
                 className="form-control"
-                placeholder={work.typeWork}
-              />
-              <input
-                type="text"
-                value={work.detail}
-                className="form-control"
-                placeholder={work.detail}
-              />
-              <input
-                type="text"
-                value={work.price}
-                className="form-control"
-                placeholder={work.price}
+                placeholder="Client Name"
               />
             </div>
-          );
-        })} */}
-        <input
-          type="text"
-          name="typeWork"
-          value={work.typeWork}
-          placeholder="Tipo de trabajo"
-          required
-          onChange={handleWorkChange}
-          className="form-control"
-        />
-        <input
-          type="text"
-          name="detail"
-          value={work.detail}
-          placeholder="Detalle"
-          required
-          onChange={handleWorkChange}
-          className="form-control"
-        />
-        <input
-          type="number"
-          name="price"
-          value={work.price}
-          placeholder="Precio"
-          required
-          onChange={handleWorkChange}
-          className="form-control"
-        />
-        <button className="form-control" onClick={confirmWorkItem}></button>
+            <div className="col-xl-4 pr-5">
+              <input
+                type="date"
+                name="date"
+                required
+                value={order.date}
+                onChange={handleOrderChange}
+                className="form-control"
+              />
+            </div>
+          </div>
 
-        <input
-          type="text"
-          name="observaciones"
-          value={order.observaciones}
-          placeholder="Observaciones"
-          onChange={handleWorkChange}
-          className="form-control"
-        />
-      </form>
+          <hr />
+
+          {/* esta funcion muestra los trabajos asociados a la orden en tiempo real */}
+          {displayWorksItems()}
+
+          <div className="row form-group">
+            <div className="col-md-3">
+              <input
+                type="text"
+                name="typeWork"
+                value={work.typeWork}
+                placeholder="Tipo de trabajo"
+                onChange={handleWorkChange}
+                className="form-control"
+              />
+            </div>
+            <div className="col-md-4">
+              <input
+                type="text"
+                name="detail"
+                value={work.detail}
+                placeholder="Detalle"
+                onChange={handleWorkChange}
+                className="form-control"
+              />
+            </div>
+            <div className="col-md-2">
+              <input
+                type="number"
+                name="price"
+                value={work.price}
+                placeholder="Precio"
+                onChange={handleWorkChange}
+                className="form-control"
+              />
+            </div>
+            <div className="col">
+              <button className="btn btn-primary" onClick={confirmWorkItem}>
+                Add
+              </button>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <textarea
+              type="text"
+              name="observaciones"
+              value={order.observaciones}
+              placeholder="Observaciones"
+              onChange={handleOrderChange}
+              className="form-control"
+            />
+          </div>
+          <div className="d-flex justify-content-center">
+            <div className="btn-group">
+              <input
+                type="submit"
+                value="Submit"
+                className="btn btn-primary px-5"
+              />
+              <input
+                type="button"
+                value="Cancel"
+                className="btn btn-secondary"
+                onClick={handleCancel}
+              />
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
