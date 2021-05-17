@@ -84,10 +84,10 @@ function OrderAdd(props) {
     event.preventDefault();
     order.worksArray = arrayWorksTemp;
     if (
-      !order.clientName ||
-      !order.date ||
-      !order.worksArray ||
-      !order.observaciones
+      order.clientName ||
+      order.date ||
+      order.worksArray ||
+      order.observaciones
     )
       return post("/api/orders", {
         clientId:order.clientId,

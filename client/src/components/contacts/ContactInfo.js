@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
 import { setContact, removeContact } from "../../actions";
 
 function ContactInfo(props) {
