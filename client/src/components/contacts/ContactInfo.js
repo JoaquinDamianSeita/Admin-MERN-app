@@ -1,17 +1,34 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Col, Form, Modal, Row, ThemeProvider } from "react-bootstrap";
+import ContactEdit from "./ContactEdit";
 
 import { setContact, removeContact } from "../../actions";
 
 function ContactInfo(props) {
+  const [open, setOpen] = useState(props.isOpen);
+  const [showEdit, setShowEdit] = useState(false);
+  const [tempContactId, setTempContactId] = useState("");
   const contact = useSelector((state) => state.contact);
   const dispatch = useDispatch();
 
+  function handleCloseEdit(){
+    setShowEdit(false);
+  }
+
+  function handleShowEdit(id) {
+    setTempContactId(id);
+    setShowEdit(true);
+  }
+
+  useEffect(() => {
+    setOpen(props.isOpen);
+  }, [props.isOpen]);
+
   useEffect(() => {
     axios
-      .get(`/api/contacts/${props.match.params._id}`)
+      .get(`/api/contacts/${props.contactId}`)
       .then((response) => {
         dispatch(setContact(response.data));
       })
@@ -25,35 +42,89 @@ function ContactInfo(props) {
       .delete(`/api/contacts/${contact._id}`)
       .then(() => {
         dispatch(removeContact(contact._id));
-        props.history.push("/");
       })
       .catch((error) => {
         console.log("error", error);
       });
+    props.handleCloseInfo();
   }
   return (
     <div>
-      <h2>{contact.name}</h2>
-      <small>id: {contact._id}</small>
-      <p>{contact.tel}</p>
-      <p>{contact.adress}</p>
-      <p>{contact.email}</p>
-      
-      <div className="btn-group">
-        <Link
-          to={{ pathname: `/contacts/${contact._id}/edit` }}
-          className="btn btn-info"
-        >
-          Edit
-        </Link>
-        <button className="btn btn-danger" type="button" onClick={handleDelete}>
-          Delete
-        </button>
-        <Link to="/" className="btn btn-secondary">
-          Close
-        </Link>
+      <Modal
+        show={open}
+        onHide={props.handleCloseInfo}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Info {contact.name}</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Form>
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
+                Nombre:
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control value={contact.name} readOnly></Form.Control>
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
+                Teléfono:
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control value={contact.tel} readOnly></Form.Control>
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
+                Dirección:
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control value={contact.adress} readOnly></Form.Control>
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
+                Email:
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control value={contact.email} readOnly></Form.Control>
+              </Col>
+            </Form.Group>
+          </Form>
+
+          <div className="btn-group">
+            <button className="btn btn-warning" onClick={()=>handleShowEdit(String(props.contactId))}>Edit</button>
+            <button
+              className="btn btn-danger"
+              type="button"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-danger" onClick={props.handleCloseInfo}>
+            Cancelar
+          </button>
+        </Modal.Footer>
+      </Modal>
+
+      <div>
+        <ContactEdit
+          contactId={tempContactId}
+          isOpen={showEdit}
+          handleCloseEdit={handleCloseEdit}
+        ></ContactEdit>
       </div>
-      <hr />
     </div>
   );
 }

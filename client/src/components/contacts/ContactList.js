@@ -1,14 +1,31 @@
-import {React,useState} from "react";
+import { React, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Modal } from "react-bootstrap";
+import ContactAdd from "./ContactAdd";
+import ContactInfo from "./ContactInfo";
+import { Card, CardDeck, Col, Row } from "react-bootstrap";
 
 function ContactList() {
+  const [showAdd, setShowAdd] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
+  const [tempContactId, setTempContactId] = useState("");
 
-  const [show, setShow] = useState(false);
+  function handleCloseAdd() {
+    setShowAdd(false);
+  }
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  function handleCloseInfo() {
+    setShowInfo(false);
+  }
+
+  function handleShowAdd() {
+    setShowAdd(true);
+  }
+
+  function handleShowInfo(id) {
+    setTempContactId(id);
+    setShowInfo(true);
+  }
 
   const contacts = useSelector(function (state) {
     return state.contacts;
@@ -16,50 +33,53 @@ function ContactList() {
   return (
     <div>
       <h2>
-        Contacts
-        <Link to="/contacts/new" className="btn btn-primary float-right">
-          Create Contact
-        </Link>
-        <button className="btn btn-primary" onClick={handleShow}>Open Modal</button>
+        Contactos
+        <button className="btn btn-primary float-right" onClick={handleShowAdd}>
+          Crear Contacto
+        </button>
       </h2>
+      <hr/>
 
       <div>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          I will not close if you click outside me. Don't even try to press
-          escape key.
-        </Modal.Body>
-        <Modal.Footer>
-          <button className="btn btn-secondary" onClick={handleClose}>
-            Close
-          </button>
-          <button className="btn btn-primary">Understood</button>
-        </Modal.Footer>
-      </Modal>
+        <ContactAdd
+          isOpen={showAdd}
+          handleCloseAdd={handleCloseAdd}
+        ></ContactAdd>
       </div>
-      
 
-      <hr/>
-      {contacts.length &&
-        contacts.map(function (contact) {
-          return (
-            <div key={contact._id}>
-              <hr />
-              <h4>
-                <Link to={`/contacts/${contact._id}`}>{contact.name}</Link>
-              </h4>
-              <small>_id: {contact._id}</small>
-            </div>
-          );
-        })}
+      <div>
+        <ContactInfo
+          contactId={tempContactId}
+          isOpen={showInfo}
+          handleCloseInfo={handleCloseInfo}
+        ></ContactInfo>
+      </div>
+
+      <Row>
+        <CardDeck>
+          {contacts.length &&
+            contacts.map(function (contact) {
+              return (
+                <Col xl={3} className="mb-4">
+                  <Card className="text-center" bg="dark" text="light" key={contact._id} style={{ width: '16rem', height:"12rem" }}>
+                    <Card.Body>
+                      <Card.Title>{contact.name}</Card.Title>
+                      <Card.Text>Teléfono {contact.tel}</Card.Text>
+                      <Card.Subtitle className="mb-2 text-muted">
+                        Id: {contact._id}
+                      </Card.Subtitle>
+                      <Card.Link
+                        onClick={() => handleShowInfo(String(contact._id))}
+                      >
+                        Mas Info
+                      </Card.Link>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+        </CardDeck>
+      </Row>
     </div>
   );
 }

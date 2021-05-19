@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { post } from "axios";
 import { addContact } from "../../actions";
+import { Modal } from "react-bootstrap";
 
 function ContactAdd(props) {
   const initialState = { name: "", tel: "", email: "", adress: "" };
   const [contact, setFields] = useState(initialState);
+  const [open,setOpen] = useState(props.isOpen);
   const dispatch = useDispatch();
+
+  console.log(props.contactId);
+
+  useEffect(()=>{
+    setOpen(props.isOpen);
+  },[props.isOpen]);
 
   function handleChange(event) {
     setFields({ ...contact, [event.target.name]: event.target.value });
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit() {
     if (!contact.name || !contact.tel) return;
     post("/api/contacts", {
       name: contact.name,
@@ -24,77 +31,80 @@ function ContactAdd(props) {
       .then(function (response) {
         dispatch(addContact(response.data));
       })
-      .then(function () {
-        props.history.push("/");
-      })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  function handleCancel() {
-    props.history.push("/");
-  }
-
   return (
     <div>
-      <h4>Add Contact</h4>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <input
-            type="text"
-            name="name"
-            required
-            value={contact.name}
-            onChange={handleChange}
-            className="form-control"
-            placeholder="Name"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            name="tel"
-            required
-            value={contact.tel}
-            onChange={handleChange}
-            className="form-control"
-            placeholder="Tel"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            name="email"
-            required
-            value={contact.email}
-            onChange={handleChange}
-            className="form-control"
-            placeholder="Email"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            name="adress"
-            required
-            value={contact.adress}
-            onChange={handleChange}
-            className="form-control"
-            placeholder="Adress"
-          />
-        </div>
-        <div className="btn-group">
-          <input type="submit" value="Submit" className="btn btn-primary" />
-          <button
-            type="button"
-            onClick={handleCancel}
-            className="btn btn-secondary"
-          >
-            Cancel
+      <Modal
+        show={open}
+        onHide={props.handleCloseAdd}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Agregar Contacto</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <input
+                type="text"
+                name="name"
+                required
+                value={contact.name}
+                onChange={handleChange}
+                className="form-control"
+                placeholder="Nombre"
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="tel"
+                required
+                value={contact.tel}
+                onChange={handleChange}
+                className="form-control"
+                placeholder="Teléfono"
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="email"
+                required
+                value={contact.email}
+                onChange={handleChange}
+                className="form-control"
+                placeholder="Email"
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="adress"
+                required
+                value={contact.adress}
+                onChange={handleChange}
+                className="form-control"
+                placeholder="Dirección"
+              />
+            </div>
+            <div className="btn-group d-flex justify-content-center">
+              <input type="submit" value="Submit" className="btn btn-primary" />
+            </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-danger" onClick={props.handleCloseAdd}>
+            Cancelar
           </button>
-        </div>
-      </form>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
