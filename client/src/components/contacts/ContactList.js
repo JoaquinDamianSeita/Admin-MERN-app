@@ -30,7 +30,6 @@ function ContactList() {
     return state.contacts;
   });
 
-  
   return (
     <div>
       <h2>
@@ -39,7 +38,7 @@ function ContactList() {
           Crear Contacto
         </button>
       </h2>
-      <hr/>
+      <hr />
 
       <div>
         <ContactAdd
@@ -61,8 +60,18 @@ function ContactList() {
           {contacts.length &&
             contacts.map(function (contact) {
               return (
-                <Col xl={3} md={6} className="m-2">
-                  <Card className="text-center" bg="dark" text="light" key={contact._id} style={{ width: '16rem', height:"12rem" }}>
+                <Col xs={12} md={6} xl={4} className="mb-3">
+                  <Card
+                    className="text-center"
+                    bg="dark"
+                    text="light"
+                    key={contact._id}
+                    style={{
+                      width:"19rem",
+                      height:"11rem",
+                      margin:"0 10rem 2rem 0",
+                    }}
+                  >
                     <Card.Body>
                       <Card.Title>{contact.name}</Card.Title>
                       <Card.Text>Teléfono {contact.tel}</Card.Text>

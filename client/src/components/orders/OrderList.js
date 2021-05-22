@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { useSelector } from "react-redux";
 import { Card, CardDeck, Col, Row } from "react-bootstrap";
 import OrderAdd from "./OrderAdd";
+import OrderInfo from "./OrderInfo";
 
 function OrderList() {
   const [showAdd, setShowAdd] = useState(false);
@@ -42,18 +43,26 @@ function OrderList() {
         <OrderAdd isOpen={showAdd} handleCloseAdd={handleCloseAdd}></OrderAdd>
       </div>
 
+      <div>
+        <OrderInfo isOpen={showInfo} handleCloseInfo={handleCloseInfo} orderId={tempContactId}></OrderInfo>
+      </div>
+
       <Row>
         <CardDeck>
           {orders.length &&
             orders.map((order) => {
               return (
-                <Col xl={3} >
+                <Col xs={12} md={6} xl={4} >
                   <Card
                     className="text-center"
                     bg="dark"
                     text="light"
                     key={order._id}
-                    style={{ width: "16rem", height: "12rem" }}
+                    style={{
+                      width:"15rem",
+                      height:"12rem",
+                      margin:"0 10rem 2rem 0",
+                    }}
                   >
                     <Card.Body>
                       <Card.Title>{order.order}</Card.Title>

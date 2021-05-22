@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { Col, Form, Modal, Row, ThemeProvider } from "react-bootstrap";
+import { Col, Form, Modal, Row } from "react-bootstrap";
 import ContactEdit from "./ContactEdit";
 
 import { setContact, removeContact } from "../../actions";
