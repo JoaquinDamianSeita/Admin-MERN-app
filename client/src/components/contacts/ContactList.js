@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import ContactAdd from "./ContactAdd";
 import ContactInfo from "./ContactInfo";
 import { Card, CardDeck, Col, Row } from "react-bootstrap";
@@ -30,6 +29,8 @@ function ContactList() {
   const contacts = useSelector(function (state) {
     return state.contacts;
   });
+
+  
   return (
     <div>
       <h2>
@@ -60,7 +61,7 @@ function ContactList() {
           {contacts.length &&
             contacts.map(function (contact) {
               return (
-                <Col xl={3} className="mb-4">
+                <Col xl={3} md={6} className="m-2">
                   <Card className="text-center" bg="dark" text="light" key={contact._id} style={{ width: '16rem', height:"12rem" }}>
                     <Card.Body>
                       <Card.Title>{contact.name}</Card.Title>

@@ -58,7 +58,8 @@ function ContactInfo(props) {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Info {contact.name}</Modal.Title>
+          <Modal.Title>
+          Info {contact.name}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -101,13 +102,13 @@ function ContactInfo(props) {
           </Form>
 
           <div className="btn-group">
-            <button className="btn btn-warning" onClick={()=>handleShowEdit(String(props.contactId))}>Edit</button>
+            <button className="btn btn-warning" onClick={()=>handleShowEdit(String(props.contactId))}>Editar</button>
             <button
               className="btn btn-danger"
               type="button"
               onClick={handleDelete}
             >
-              Delete
+              Borrar
             </button>
           </div>
         </Modal.Body>

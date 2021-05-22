@@ -53,7 +53,7 @@ function ContactEdit(props) {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit {contact.name}</Modal.Title>
+          <Modal.Title>Editar {contact.name}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>

@@ -10,7 +10,6 @@ function ContactAdd(props) {
   const [open,setOpen] = useState(props.isOpen);
   const dispatch = useDispatch();
 
-  console.log(props.contactId);
 
   useEffect(()=>{
     setOpen(props.isOpen);
@@ -20,7 +19,8 @@ function ContactAdd(props) {
     setFields({ ...contact, [event.target.name]: event.target.value });
   }
 
-  function handleSubmit() {
+  function handleSubmit(event) {
+    event.preventDefault();
     if (!contact.name || !contact.tel) return;
     post("/api/contacts", {
       name: contact.name,
@@ -30,6 +30,8 @@ function ContactAdd(props) {
     })
       .then(function (response) {
         dispatch(addContact(response.data));
+        props.handleCloseAdd();
+        setFields(initialState);
       })
       .catch(function (error) {
         console.log(error);
@@ -95,7 +97,7 @@ function ContactAdd(props) {
               />
             </div>
             <div className="btn-group d-flex justify-content-center">
-              <input type="submit" value="Submit" className="btn btn-primary" />
+              <input type="submit" value="Confirmar" className="btn btn-primary" />
             </div>
           </form>
         </Modal.Body>
